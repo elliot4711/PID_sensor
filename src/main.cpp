@@ -1,46 +1,41 @@
 #include <Arduino.h>
 
-/*  
-    Arduino with PIR motion sensor
-    For complete project details, visit: http://RandomNerdTutorials.com/pirsensor
-    Modified by Rui Santos based on PIR sensor by Limor Fried
-*/
- 
-int led = 13;                // the pin that the LED is atteched to
-int sensor = 2;              // the pin that the sensor is atteched to
-int state = LOW;             // by default, no motion detected
-int val = 0;                 // variable to store the sensor status (value)
+
+int led = 13;               
+int sensor = 2;              
+int state = LOW;             
+int val = 0;                
 const int buzzer = 9;
 
 void setup() {
-  pinMode(led, OUTPUT);      // initalize LED as an output
-  pinMode(sensor, INPUT);    // initialize sensor as an input
+  pinMode(led, OUTPUT);     
+  pinMode(sensor, INPUT);   
   pinMode(buzzer, OUTPUT);
-  Serial.begin(9600);        // initialize serial
+  Serial.begin(9600);       
 }
 
 void loop(){
-  val = digitalRead(sensor);   // read sensor value
-  if (val == HIGH) {           // check if the sensor is HIGH
-    digitalWrite(led, HIGH);   // turn LED ON
-                   // delay 100 milliseconds 
+  val = digitalRead(sensor);   
+  if (val == HIGH) {           
+    digitalWrite(led, HIGH);  
+               
     
     if (state == LOW) {
       Serial.println("Motion detected!");
-      tone(buzzer, 9000); // Send 1KHz sound signal...
-      delay(1000);        // ...for 1 sec
-      noTone(buzzer);     // Stop sound...
-      delay(1000);        // ...for 1sec
-      state = HIGH;       // update variable state to HIGH
+      tone(buzzer, 9000);
+      delay(1000);       
+      noTone(buzzer);   
+      delay(1000);       
+      state = HIGH;       
     }
   } 
   else {
-      digitalWrite(led, LOW); // turn LED OFF
-                 // delay 200 milliseconds 
+      digitalWrite(led, LOW); 
+                
       
       if (state == HIGH){
         Serial.println("Motion stopped!");
-        state = LOW;       // update variable state to LOW
+        state = LOW;     
     }
   }
 }
